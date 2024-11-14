@@ -9,6 +9,7 @@
 <body>
   <div class="container">
     <h1>Find Your Information</h1>
+    
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" id="name" placeholder="Enter your name" oninput="this.value = this.value.toLowerCase()">
@@ -24,13 +25,11 @@
   <script>
     let records = [];
 
-    // Load the main.txt file on page load
     async function loadFile() {
       try {
         const response = await fetch('main.txt');
         const text = await response.text();
         
-        // Parse each line into JSON format
         const lines = text.trim().split('\n');
         records = lines.map(line => {
           const [id, name, surname, grade, sector] = line.trim().split(/\s+/);
@@ -43,8 +42,7 @@
       }
     }
 
-    // Find and display information based on name and surname input
-    function findInfo() {
+    async function findInfo() {
       const name = document.getElementById('name').value.trim();
       const surname = document.getElementById('surname').value.trim();
       const resultCard = document.getElementById('result-card');
@@ -52,21 +50,48 @@
       const record = records.find(item => 
         item.name.toLowerCase() === name && item.surname.toLowerCase() === surname
       );
+
       if (record) {
-        resultCard.innerHTML = `
-          <h2>Information</h2>
-          <p><strong>ID:</strong> ${record.id}</p>
-          <p><strong>Grade:</strong> ${record.grade}</p>
-          <p><strong>Sector:</strong> ${record.sector}</p>
-        `;
-        resultCard.classList.add('visible');
+        try {
+          const apiUrl = 'https://imtahanim.net';
+          const payload = new URLSearchParams();
+          payload.append('ajax', 'submit');
+          payload.append('TxtExamCheck[code]', record.id);
+
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: payload.toString(),
+          });
+
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          
+          const links = doc.querySelectorAll('a.btn.btn-xs.btn-primary.waves-effect.waves-light');
+          
+          resultCard.innerHTML = `<h2>Available Links</h2>`;
+          links.forEach(link => {
+            const button = document.createElement('button');
+            button.innerText = link.innerText;
+            button.onclick = () => window.open(link.href, '_blank');
+            resultCard.appendChild(button);
+          });
+          
+          resultCard.classList.add('visible');
+        } catch (error) {
+          resultCard.innerHTML = `<p>Failed to fetch data from the website</p>`;
+          resultCard.classList.add('visible');
+          console.error("API Request Failed:", error);
+        }
       } else {
         resultCard.innerHTML = `<p>No record found</p>`;
         resultCard.classList.add('visible');
       }
     }
 
-    // Load the file when the page loads
     window.onload = loadFile;
   </script>
 </body>
