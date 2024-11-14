@@ -49,7 +49,7 @@
       const surname = document.getElementById('surname').value.trim();
       const resultCard = document.getElementById('result-card');
       
-      const record = records.find(item => item.name === name && item.surname === surname);
+      const record = records.find(item => item.name === name);
 
       if (record) {
         resultCard.innerHTML = `
