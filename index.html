@@ -33,7 +33,7 @@
         // Parse each line into JSON format
         const lines = text.trim().split('\n');
         records = lines.map(line => {
-          const [id, name, surname, grade, sector] = line.split('\t');
+          const [id, name, surname, grade, sector] = line.trim().split(/\s+/);
           return { id, name, surname, grade, sector };
         });
 
