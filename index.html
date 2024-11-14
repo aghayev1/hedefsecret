@@ -56,14 +56,17 @@
       if (record) {
         try {
           const apiUrl = 'https://imtahanim.net';
+          const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Proxy URL
+          
           const payload = new URLSearchParams();
           payload.append('ajax', 'submit');
-          payload.append('TxtExamCheck[code]', record.id);
-
-          const response = await fetch(apiUrl, {
+          payload.append('TxtExamCheck[code]', record.id);  // Make sure `record.id` is correct
+          
+          const response = await fetch(proxyUrl + apiUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
+              'Origin': 'https://your-domain.com',  // Set the origin for the proxy if required
             },
             body: payload.toString(),
           });
