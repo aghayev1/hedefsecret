@@ -48,8 +48,10 @@
       const resultCard = document.getElementById('result-card');
       
       const record = records.find(item => 
-        item.name.toLowerCase() === name && item.surname.toLowerCase() === surname
-      );
+  item.name.trim().toLowerCase() === name.trim().toLowerCase() && 
+  item.surname.trim().toLowerCase() === surname.trim().toLowerCase()
+);
+
 
       if (record) {
         try {
