@@ -65,8 +65,7 @@
           const response = await fetch(proxyUrl + apiUrl, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Origin': 'https://your-domain.com',  // Set the origin for the proxy if required
+              'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: payload.toString(),
           });
