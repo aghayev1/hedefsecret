@@ -49,8 +49,9 @@
       const surname = document.getElementById('surname').value.trim();
       const resultCard = document.getElementById('result-card');
       
-      const record = records.find(item => item.name === name && item.surname === surname));
-
+      const record = records.find(item => 
+        item.name.toLowerCase() === name && item.surname.toLowerCase() === surname
+      );
       if (record) {
         resultCard.innerHTML = `
           <h2>Information</h2>
