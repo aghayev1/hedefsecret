@@ -34,7 +34,7 @@
         const lines = text.trim().split('\n');
         records = lines.map(line => {
           const [id, name, surname, grade, sector] = line.trim().split(/\s+/);
-          return { id, name.toLowerCase(), surname.toLowerCase(), grade, sector };
+          return { id, name, surname, grade, sector };
         });
 
         console.log("File loaded successfully!", records);
