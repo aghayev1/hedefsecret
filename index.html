@@ -21,6 +21,50 @@
     <div id="result-card" class="result-card hidden"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let records = [];
+
+    // Read the uploaded file
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const lines = e.target.result.trim().split('\n');
+        
+        // Parse each line into JSON format
+        records = lines.map(line => {
+          const [id, name, surname, grade, sector] = line.split('\t');
+          return { id, name, surname, grade, sector };
+        });
+        
+        alert("File loaded successfully!");
+      };
+      
+      reader.readAsText(file);
+    });
+
+    // Find and display information based on name and surname input
+    function findInfo() {
+      const name = document.getElementById('name').value.trim();
+      const surname = document.getElementById('surname').value.trim();
+      const resultCard = document.getElementById('result-card');
+      
+      const record = records.find(item => item.name === name && item.surname === surname);
+
+      if (record) {
+        resultCard.innerHTML = `
+          <h2>Information</h2>
+          <p><strong>ID:</strong> ${record.id}</p>
+          <p><strong>Grade:</strong> ${record.grade}</p>
+          <p><strong>Sector:</strong> ${record.sector}</p>
+        `;
+        resultCard.classList.add('visible');
+      } else {
+        resultCard.innerHTML = `<p>No record found</p>`;
+        resultCard.classList.add('visible');
+      }
+    }
+  </script>
 </body>
 </html>
