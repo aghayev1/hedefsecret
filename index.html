@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Application</title>
-    <link rel="stylesheet" href="styles.css">
+<head>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your ID</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Header -->
-    <header class="header">
-        <h1>Search Application</h1>
-    </header>
-
-    <!-- Search Section -->
-    <section class="search-section">
-        <input type="text" id="name" placeholder="Enter Name">
-        <input type="text" id="surname" placeholder="Enter Surname">
-        <button onclick="findInfo()">Search</button>
-    </section>
-
-    <!-- Result Section -->
-    <section id="result-card" class="result-card"></section>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <img src="your-photo.jpg" alt="Creator Photo" class="creator-photo">
-        <div class="creator-info">
-            <h2>About the Creator</h2>
-            <p>Hello! I'm [Your Name], the creator of this site.</p>
-            <p>Contact me at: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-        </div>
-    </section>
+  <div class="container">
+    <h1>Find Your Information</h1>
+    
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" placeholder="Enter your surname">
+    </div>
+    <button onclick="findInfo()">Get Information</button>
+    <div id="result-card" class="result-card hidden"></div>
+  </div>
+<div class="author-info">
+            <img src="your-photo.jpg" alt="Creator Photo" class="author-photo">
+            <div>
+                <p>Created by [Your Name]</p>
+                <a href="mailto:your-email@example.com">Contact Me</a>
+            </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
