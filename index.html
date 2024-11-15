@@ -43,8 +43,8 @@
     }
 
     async function findInfo() {
-      const name = document.getElementById('name').value.toUpperCase().trim();
-      const surname = document.getElementById('surname').value.toUpperCase().trim();
+      const name = document.getElementById('name').value.toLocaleUpperCase('az').trim();
+      const surname = document.getElementById('surname').toLocaleUpperCase('az').trim();
       const resultCard = document.getElementById('result-card');
       
       const record = records.find(item => item.name.trim() === name && item.surname.trim() === surname);
