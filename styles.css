@@ -1,6 +1,5 @@
-/* General Styling */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +66,6 @@ button:hover {
   background: #5a76f1;
 }
 
-/* Result Card */
 .result-card {
   background: #f9f9f9;
   padding: 20px;
