@@ -1,106 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Your ID</title>
-  <link rel="stylesheet" href="styles.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Application</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Find Your Information</h1>
-    
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Enter your name">
-    </div>
-    <div class="form-group">
-      <label for="surname">Surname</label>
-      <input type="text" id="surname" placeholder="Enter your surname">
-    </div>
-    <button onclick="findInfo()">Get Information</button>
-    <div id="result-card" class="result-card hidden"></div>
-  </div>
 
-  <script>
-    let records = [];
+    <!-- Header -->
+    <header class="header">
+        <h1>Search Application</h1>
+    </header>
 
-    async function loadFile() {
-      try {
-        const response = await fetch('main.txt');
-        const text = await response.text();
-        
-        const lines = text.trim().split('\n');
-        records = lines.map(line => {
-          const [id, name, surname, grade, sector] = line.trim().split(/\s+/);
-          return { id, name, surname, grade, sector };
-        });
+    <!-- Search Section -->
+    <section class="search-section">
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="text" id="surname" placeholder="Enter Surname">
+        <button onclick="findInfo()">Search</button>
+    </section>
 
-        console.log("File loaded successfully!", records);
-      } catch (error) {
-        console.error("Error loading file:", error);
-      }
-    }
+    <!-- Result Section -->
+    <section id="result-card" class="result-card"></section>
 
-    async function findInfo() {
-      const name = document.getElementById('name').value.toLocaleUpperCase('az').trim();
-      const surname = document.getElementById('surname').value.toLocaleUpperCase('az').trim();
-      const resultCard = document.getElementById('result-card');
-      
-      const record = records.find(item => item.name.trim() === name && item.surname.trim() === surname);
+    <!-- About Section -->
+    <section class="about-section">
+        <img src="your-photo.jpg" alt="Creator Photo" class="creator-photo">
+        <div class="creator-info">
+            <h2>About the Creator</h2>
+            <p>Hello! I'm [Your Name], the creator of this site.</p>
+            <p>Contact me at: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
+        </div>
+    </section>
 
-
-      if (record) {
-        resultCard.innerHTML = `
-          <h2>Information</h2>
-          <p><strong>ID:</strong> ${record.id}</p>
-          <p><strong>Grade:</strong> ${record.grade}</p>
-          <p><strong>Sector:</strong> ${record.sector}</p>
-        `;
-        resultCard.classList.add('visible');
-      //   try {
-      //     const apiUrl = 'https://imtahanim.net';
-      //     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Proxy URL
-          
-      //     const payload = new URLSearchParams();
-      //     payload.append('ajax', 'submit');
-      //     payload.append('TxtExamCheck[code]', record.id);  // Make sure `record.id` is correct
-          
-      //     const response = await fetch(apiUrl, {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/x-www-form-urlencoded'
-      //       },
-      //       body: payload.toString(),
-      //     });
-
-      //     const html = await response.text();
-      //     const parser = new DOMParser();
-      //     const doc = parser.parseFromString(html, 'text/html');
-          
-      //     const links = doc.querySelectorAll('a.btn.btn-xs.btn-primary.waves-effect.waves-light');
-          
-      //     resultCard.innerHTML = `<h2>Available Links</h2>`;
-      //     links.forEach(link => {
-      //       const button = document.createElement('button');
-      //       button.innerText = link.innerText;
-      //       button.onclick = () => window.open(link.href, '_blank');
-      //       resultCard.appendChild(button);
-      //     });
-          
-      //     resultCard.classList.add('visible');
-      //   } catch (error) {
-      //     resultCard.innerHTML = `<p>Failed to fetch data from the website</p>`;
-      //     resultCard.classList.add('visible');
-      //     console.error("API Request Failed:", error);
-      //   }
-      } else {
-        resultCard.innerHTML = `<p>No record found</p>`;
-        resultCard.classList.add('visible');
-      }
-    }
-
-    window.onload = loadFile;
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
