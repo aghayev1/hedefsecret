@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>  
-<head>
-  <script>
-    function handleData(data) {
-      console.log(data);
-    }
-  </script>
-  <script src="http://imtahanim.net/data.json?callback=handleData"></script>
-</head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find Your ID</title>
@@ -52,50 +43,57 @@
     }
 
     async function findInfo() {
-      const name = document.getElementById('name').value.trim();
-      const surname = document.getElementById('surname').value.trim();
+      const name = document.getElementById('name').value.trim().toUpperCase();
+      const surname = document.getElementById('surname').value.trim().toUpperCase();
       const resultCard = document.getElementById('result-card');
       
       const record = records.find(item => item.name.trim() === name && item.surname.trim() === surname);
 
 
       if (record) {
-        try {
-          const apiUrl = 'https://imtahanim.net';
-          const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Proxy URL
+        resultCard.innerHTML = `
+          <h2>Information</h2>
+          <p><strong>ID:</strong> ${record.id}</p>
+          <p><strong>Grade:</strong> ${record.grade}</p>
+          <p><strong>Sector:</strong> ${record.sector}</p>
+        `;
+        resultCard.classList.add('visible');
+      //   try {
+      //     const apiUrl = 'https://imtahanim.net';
+      //     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Proxy URL
           
-          const payload = new URLSearchParams();
-          payload.append('ajax', 'submit');
-          payload.append('TxtExamCheck[code]', record.id);  // Make sure `record.id` is correct
+      //     const payload = new URLSearchParams();
+      //     payload.append('ajax', 'submit');
+      //     payload.append('TxtExamCheck[code]', record.id);  // Make sure `record.id` is correct
           
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: payload.toString(),
-          });
+      //     const response = await fetch(apiUrl, {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/x-www-form-urlencoded'
+      //       },
+      //       body: payload.toString(),
+      //     });
 
-          const html = await response.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
+      //     const html = await response.text();
+      //     const parser = new DOMParser();
+      //     const doc = parser.parseFromString(html, 'text/html');
           
-          const links = doc.querySelectorAll('a.btn.btn-xs.btn-primary.waves-effect.waves-light');
+      //     const links = doc.querySelectorAll('a.btn.btn-xs.btn-primary.waves-effect.waves-light');
           
-          resultCard.innerHTML = `<h2>Available Links</h2>`;
-          links.forEach(link => {
-            const button = document.createElement('button');
-            button.innerText = link.innerText;
-            button.onclick = () => window.open(link.href, '_blank');
-            resultCard.appendChild(button);
-          });
+      //     resultCard.innerHTML = `<h2>Available Links</h2>`;
+      //     links.forEach(link => {
+      //       const button = document.createElement('button');
+      //       button.innerText = link.innerText;
+      //       button.onclick = () => window.open(link.href, '_blank');
+      //       resultCard.appendChild(button);
+      //     });
           
-          resultCard.classList.add('visible');
-        } catch (error) {
-          resultCard.innerHTML = `<p>Failed to fetch data from the website</p>`;
-          resultCard.classList.add('visible');
-          console.error("API Request Failed:", error);
-        }
+      //     resultCard.classList.add('visible');
+      //   } catch (error) {
+      //     resultCard.innerHTML = `<p>Failed to fetch data from the website</p>`;
+      //     resultCard.classList.add('visible');
+      //     console.error("API Request Failed:", error);
+      //   }
       } else {
         resultCard.innerHTML = `<p>No record found</p>`;
         resultCard.classList.add('visible');
