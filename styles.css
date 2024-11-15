@@ -49,21 +49,28 @@ input[type="text"]:focus {
   border-color: #6e8efb;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background: #6e8efb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
+.search-section input,
+.search-section button {
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 40px; /* Set height to match */
+    box-sizing: border-box; /* Ensure padding doesn't affect size */
 }
 
-button:hover {
-  background: #5a76f1;
+.search-section button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-section button:hover {
+    background-color: #0056b3;
 }
 
 .result-card {
